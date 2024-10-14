@@ -10,6 +10,7 @@ body {
     --ccft-spacer-y: 40px;
     --ccft-brand-size: 60px;
 
+    /* color reference: https://colorhunt.co/palette/222831393e46ffd369eeeeee*/
     --color-primary: #222831;
     --color-secondary: #393E46;
     --color-accent: #FFD369;
@@ -124,7 +125,7 @@ p {
     color: var(--color-dark-accent);
     font-family: "Caveat", cursive;
     /* Dark text for readability */
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     /* Slightly larger for a note */
     line-height: 1.75;
     margin: 0;

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VISUADL - Neural Networks</title>
+    <link rel="stylesheet" href="../global.css">
+    <link rel="stylesheet" href="./styles.css">
+
+    <!-- Anime.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" defer></script>
+
+    <!-- MathJax for Mathematical Rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Reenie+Beanie&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="layout">
+        <!-- Back button to return to main page -->
+        <div class="back-button" style="position: fixed; top: 10px; left: 10px;">
+            <button onclick="window.location.href='../../index.html'"
+                style="padding: 10px 20px; background-color: var(--color-primary); color: white; border: none; border-radius: 5px; cursor: pointer;">
+                Back to Main Page
+            </button>
+        </div>
+
+        <div class="layout__wrapper">
+            <header class="layout__header">
+                <h1 class="hero-title">Neural Networks Explained</h1>
+                <p class="hero-slogan"><em>Making Machines Smarter, One Weight Update at a Time!</em>
+                </p>
+            </header>
+
+            <main class="layout__main">
+                <!-- Section 1: Introduction to Neural Networks -->
+                <section class="backpropagation-section">
+                    <h2>Introduction to Neural Networks</h2>
+                    <p>A neural network is a computational model inspired by the way biological neural networks in the
+                        human brain process information. It consists of layers of neurons, each neuron performing a
+                        <span class="highlight">mathematical operation</span>. The main goal of a neural network is to
+                        learn from the data and make
+                        accurate predictions.
+                    </p>
+
+                    <p>In its simplest form, a neural network has three types of layers:
+                    <ul>
+                        <li><span class="underline">Input Layer</span>: Where data enters the network.</li>
+                        <li><span class="underline">Hidden Layers</span>: Where data is processed with mathematical
+                            transformations.</li>
+                        <li><span class="underline">Output Layer</span>: Where the final prediction or classification is
+                            made.</li>
+                    </ul>
+                    </p>
+                </section>
+
+                <!-- Section 2: Neurons and Layers -->
+                <section class="backpropagation-section">
+                    <h2>Neurons and Layers</h2>
+                    <p>Each neuron receives input, performs a weighted sum, and applies an activation function.
+                        Mathematically, a neuron in layer \( l \) can be described as:</p>
+                    <p>$$ z^{(l)} = W^{(l)} \cdot a^{(l-1)} + b^{(l)} $$</p>
+                    <p>where:
+                    <ul>
+                        <li>\( W^{(l)} \): Weight matrix for layer \( l \).</li>
+                        <li>\( a^{(l-1)} \): Activation from the previous layer.</li>
+                        <li>\( b^{(l)} \): Bias vector for layer \( l \).</li>
+                    </ul>
+                    </p>
+
+                    <p>The output of each neuron is passed through an activation function like ReLU or Sigmoid:</p>
+                    <p>$$ a^{(l)} = f(z^{(l)}) $$</p>
+                    <p>where \( f \) is the activation function, such as:
+                    <ul>
+                        <li>Sigmoid: \( f(x) = \frac{1}{1 + e^{-x}} \)</li>
+                        <li>ReLU: \( f(x) = \max(0, x) \)</li>
+                        <li>Tanh: \( f(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}} \)</li>
+                    </ul>
+                    </p>
+                </section>
+
+                <!-- Section 3: Forward Propagation -->
+                <section class="backpropagation-section">
+                    <h2>Forward Propagation</h2>
+                    <p>In forward propagation, data passes through each layer, transforming inputs into outputs through
+                        matrix multiplication, bias addition, and activation functions. For a simple feedforward
+                        network:</p>
+                    <p>$$ a^{(1)} = f(W^{(1)} \cdot X + b^{(1)}) $$</p>
+                    <p>The forward pass continues through each hidden layer until it reaches the output layer. If the
+                        network has multiple hidden layers, the process can be generalized as:</p>
+                    <p>$$ a^{(l+1)} = f(W^{(l+1)} \cdot a^{(l)} + b^{(l+1)}) $$</p>
+                </section>
+
+                <!-- Section 4: Loss Function -->
+                <section class="backpropagation-section">
+                    <h2>Loss Function</h2>
+                    <p>The loss function quantifies how well the network's predictions match the true values. For
+                        regression tasks, the Mean Squared Error (MSE) is commonly used:</p>
+                    <p>$$ L = \frac{1}{N} \sum_{i=1}^{N} (y_i - \hat{y}_i)^2 $$</p>
+                    <p>where:
+                    <ul>
+                        <li>\( y_i \) is the true value for the \( i^{th} \) training example.</li>
+                        <li>\( \hat{y}_i \) is the predicted value.</li>
+                        <li>\( N \) is the number of training examples.</li>
+                    </ul>
+                    </p>
+                    <p>In classification tasks, the cross-entropy loss is often used:</p>
+                    <p>$$ L = - \sum_{i=1}^{N} y_i \log(\hat{y}_i) $$</p>
+                </section>
+
+                <!-- Section 5: Backpropagation and the Chain Rule -->
+                <section class="backpropagation-section">
+                    <h2>Backpropagation and the Chain Rule</h2>
+                    <p>Backpropagation is used to compute gradients of the loss function with respect to each weight in
+                        the network. It applies the chain rule of calculus to propagate the error backward through the
+                        network. The gradient of the loss with respect to the weight \( W \) is:</p>
+                    <p>$$ \frac{\partial L}{\partial W} = \frac{\partial L}{\partial \hat{Y}} \cdot \frac{\partial
+                        \hat{Y}}{\partial Z} \cdot \frac{\partial Z}{\partial W} $$</p>
+
+                    <p>This process allows the network to adjust weights in order to minimize the error.</p>
+                </section>
+
+                <!-- Section 6: Gradient Descent -->
+                <section class="backpropagation-section">
+                    <h2>Gradient Descent</h2>
+                    <p>Gradient descent is an optimization technique used to minimize the loss function by updating the
+                        weights in the direction of the negative gradient. The weight update rule is:</p>
+                    <p>$$ W^{(t+1)} = W^{(t)} - \eta \nabla_W L $$</p>
+                    <p>where:
+                    <ul>
+                        <li>\( W^{(t)} \) is the weight at step \( t \).</li>
+                        <li>\( \eta \) is the learning rate.</li>
+                        <li>\( \nabla_W L \) is the gradient of the loss with respect to the weights.</li>
+                    </ul>
+                    </p>
+                </section>
+
+                <!-- Section 7: Regularization and Overfitting -->
+                <section class="backpropagation-section">
+                    <h2>Regularization and Overfitting</h2>
+                    <p>Regularization techniques help prevent overfitting, where a model performs well on training data
+                        but poorly on unseen data. One common regularization technique is L2 regularization, which adds
+                        a penalty term to the loss function:</p>
+                    <p>$$ L_{total} = L + \lambda \sum ||W||^2 $$</p>
+                    <p>where \( \lambda \) controls the strength of the regularization, and \( W \) is the weight
+                        matrix.</p>
+                </section>
+
+                <!-- Section 8: Types of Neural Networks -->
+                <section class="backpropagation-section">
+                    <h2>Types of Neural Networks</h2>
+                    <p>There are various types of neural networks, each suited to different tasks:</p>
+                    <ul>
+                        <li><strong>Feedforward Neural Networks (FNN)</strong>: The simplest form of neural networks
+                            where information moves in one direction—from input to output.</li>
+                        <li><strong>Convolutional Neural Networks (CNN)</strong>: Primarily used for image recognition,
+                            CNNs apply convolutional layers to detect features in input images.</li>
+                        <li><strong>Recurrent Neural Networks (RNN)</strong>: Used for sequential data such as time
+                            series or natural language, RNNs maintain information across steps in the sequence.</li>
+                        <li><strong>Long Short-Term Memory (LSTM)</strong>: A specialized RNN that handles long-range
+                            dependencies by remembering important information over extended sequences.</li>
+                        <li><strong>Autoencoders</strong>: Used for data compression and feature learning, they encode
+                            input into a lower-dimensional space and then reconstruct the output.</li>
+                    </ul>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="../global_animation.js" defer></script>
+</body>
+
+</html>

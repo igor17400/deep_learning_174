@@ -4,11 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VISUADL - Backpropagation Explained</title>
+    <title>VISUADL - Backpropagation</title>
+    <link rel="stylesheet" href="../global.css">
     <link rel="stylesheet" href="./styles.css">
 
     <!-- Anime.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" defer></script>
+
+    <!-- MathJax for Mathematical Rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,7 +26,8 @@
     <div class="layout">
         <!-- Back button to return to main page -->
         <div class="back-button" style="position: fixed; top: 10px; left: 10px;">
-            <button onclick="window.location.href='../../index.html'" style="padding: 10px 20px; background-color: var(--color-primary); color: white; border: none; border-radius: 5px; cursor: pointer;">
+            <button onclick="window.location.href='../../index.html'"
+                style="padding: 10px 20px; background-color: var(--color-primary); color: white; border: none; border-radius: 5px; cursor: pointer;">
                 Back to Main Page
             </button>
         </div>
@@ -36,7 +42,14 @@
                 <!-- Section 1: What is Backpropagation? -->
                 <section class="backpropagation-section">
                     <h2>What is Backpropagation?</h2>
-                    <p>Backpropagation is the algorithm that allows neural networks to learn by adjusting the weights based on the error between the predicted output and the actual result. It enables the network to optimize its performance over time.</p>
+                    <p>Backpropagation is the algorithm that allows neural networks to <span
+                            class="highlight">learn</span> by adjusting the weights
+                        based on the error between the predicted output and the actual result.</p>
+
+                    <p>Mathematically, given a neural network with weights \( W \), inputs \( X \), and outputs \( Y \),
+                        the loss function is defined as:</p>
+                    <p>$$ L(Y, \hat{Y}) = \frac{1}{2} \sum (Y - \hat{Y})^2 $$</p>
+                    <p>Where \( \hat{Y} \) represents the network's prediction, and \( Y \) is the ground truth.</p>
                     <!-- Placeholder for an animation explaining the concept -->
                     <div id="backprop-animation-1" class="animation-placeholder"></div>
                 </section>
@@ -44,7 +57,25 @@
                 <!-- Section 2: Neural Networks and Forward Pass -->
                 <section class="backpropagation-section">
                     <h2>How Neural Networks Work</h2>
-                    <p>A neural network is composed of neurons arranged in layers. The forward pass processes the input through each layer, producing an output at the end.</p>
+                    <p>A neural network is composed of neurons arranged in layers. Each neuron applies a transformation
+                        to the input, usually using an activation function like the sigmoid \( \sigma(x) = \frac{1}{1 +
+                        e^{-x}} \).</p>
+
+                    <p>The forward pass can be summarized as:</p>
+                    <p>$$ Z = W \cdot X + b $$</p>
+                    <p>Where \( W \) is the weight matrix, \( X \) is the input, and \( b \) is the bias. The activation
+                        function \( \sigma(Z) \) produces the output.</p>
+
+                    <!-- Post-It Sticky Notes -->
+                    <div class="post-it" id="post-it-1">Important: The gradient descent update rule is $$ W^{(t+1)} =
+                        W^{(t)} - \eta \nabla_W L $$.</div>
+                    <div class="post-it" id="post-it-2">Remember: The chain rule helps compute gradients: $$
+                        \frac{\partial L}{\partial W} = \frac{\partial L}{\partial \hat{Y}} \cdot \frac{\partial
+                        \hat{Y}}{\partial Z} \cdot \frac{\partial Z}{\partial W} $$.</div>
+                    <div class="post-it" id="post-it-3">Note: Regularization helps reduce overfitting: $$ L_{total} = L
+                        + \lambda \sum ||W||^2 $$.</div>
+
+
                     <!-- Placeholder for forward pass animation -->
                     <div id="backprop-animation-2" class="animation-placeholder"></div>
                 </section>
@@ -52,7 +83,10 @@
                 <!-- Section 3: Loss Function and Error Calculation -->
                 <section class="backpropagation-section">
                     <h2>The Loss Function</h2>
-                    <p>The loss function measures how far the network's prediction is from the actual value. It helps the network understand how much error it has made, guiding backpropagation to adjust the weights.</p>
+                    <p>The loss function measures how far the network's prediction is from the actual value. A common
+                        loss function for regression is Mean Squared Error (MSE):</p>
+                    <p>$$ L = \frac{1}{N} \sum_{i=1}^{N} (y_i - \hat{y}_i)^2 $$</p>
+                    <p>Where \( y_i \) is the true value, and \( \hat{y}_i \) is the predicted value.</p>
                     <!-- Placeholder for loss function animation -->
                     <div id="backprop-animation-3" class="animation-placeholder"></div>
                 </section>
@@ -60,7 +94,13 @@
                 <!-- Section 4: Gradient Descent and Learning Rate -->
                 <section class="backpropagation-section">
                     <h2>Gradient Descent and Learning Rate</h2>
-                    <p>Gradient descent is an optimization technique that adjusts the weights in the direction that minimizes the loss. The learning rate controls the size of these adjustments.</p>
+                    <p>Gradient descent is an optimization algorithm used to minimize the loss function by iteratively
+                        updating the weights.</p>
+
+                    <p>The weight update rule is:</p>
+                    <p>$$ W^{(t+1)} = W^{(t)} - \eta \nabla_W L $$</p>
+                    <p>Where \( \eta \) is the learning rate, and \( \nabla_W L \) is the gradient of the loss with
+                        respect to the weights.</p>
                     <!-- Placeholder for gradient descent animation -->
                     <div id="backprop-animation-4" class="animation-placeholder"></div>
                 </section>
@@ -68,7 +108,11 @@
                 <!-- Section 5: Backward Pass and Chain Rule -->
                 <section class="backpropagation-section">
                     <h2>Backward Pass: The Chain Rule</h2>
-                    <p>The backward pass calculates the gradient of the loss function with respect to each weight by applying the chain rule, which helps adjust the weights accordingly.</p>
+                    <p>The backward pass computes the gradient of the loss function with respect to each weight by
+                        applying the chain rule from calculus:</p>
+                    <p>$$ \frac{\partial L}{\partial W} = \frac{\partial L}{\partial \hat{Y}} \cdot \frac{\partial
+                        \hat{Y}}{\partial Z} \cdot \frac{\partial Z}{\partial W} $$</p>
+                    <p>This allows the network to adjust the weights accordingly to minimize the error.</p>
                     <!-- Placeholder for backward pass animation -->
                     <div id="backprop-animation-5" class="animation-placeholder"></div>
                 </section>
@@ -76,7 +120,10 @@
                 <!-- Section 6: Weight Updates -->
                 <section class="backpropagation-section">
                     <h2>Weight Updates in Neural Networks</h2>
-                    <p>After calculating the gradients, the network updates the weights to minimize the loss. This process is repeated across multiple training samples.</p>
+                    <p>After calculating the gradients, the network updates the weights in the opposite direction of the
+                        gradient to minimize the loss. The weight update formula is:</p>
+                    <p>$$ W = W - \eta \frac{\partial L}{\partial W} $$</p>
+                    <p>This process is repeated for every training sample or mini-batch.</p>
                     <!-- Placeholder for weight update animation -->
                     <div id="backprop-animation-6" class="animation-placeholder"></div>
                 </section>
@@ -84,7 +131,11 @@
                 <!-- Section 7: Overfitting and Regularization -->
                 <section class="backpropagation-section">
                     <h2>Overfitting and Regularization</h2>
-                    <p>Overfitting occurs when a network learns the training data too well and fails to generalize. Regularization techniques help reduce overfitting and improve the network's performance on unseen data.</p>
+                    <p>Overfitting occurs when the model performs well on the training data but fails to generalize to
+                        unseen data. One common regularization technique is L2 regularization, which adds a penalty term
+                        to the loss function:</p>
+                    <p>$$ L_{total} = L + \lambda \sum ||W||^2 $$</p>
+                    <p>This prevents the weights from growing too large and helps the model generalize better.</p>
                     <!-- Placeholder for overfitting animation -->
                     <div id="backprop-animation-7" class="animation-placeholder"></div>
                 </section>
@@ -92,7 +143,7 @@
         </div>
     </div>
 
-    <script src="./animation.js" defer></script>
+    <script src="../global_animations.js" defer></script>
 </body>
 
 </html>

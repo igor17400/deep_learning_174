@@ -9,10 +9,6 @@ const colorSecondary = rootStyles.getPropertyValue('--color-secondary').trim();
 const colorAccent = rootStyles.getPropertyValue('--color-accent').trim();
 
 
-const colors = [
-    'hsla(14, 97%, 65%, 0.4)',
-];
-
 // Local state.
 const state = {
     navigationItems: {},
@@ -21,7 +17,7 @@ const state = {
 
 for (let navItemIndex = 0; navItemIndex < items.length; ++navItemIndex) {
     const stateItem = {
-        color: colors[navItemIndex % colors.length],
+        color: colorPrimary,
         element: items[navItemIndex],
         id: navItemIndex,
         isActive: false,
@@ -68,31 +64,33 @@ const animateShow = (state) => {
     const animation = anime.timeline();
     console.log(state.navigationItems[state.activeItem]);
 
-    animation.add({
-        backgroundColor: state.navigationItems[state.activeItem].color,
-        begin: () => {
-            state.root.classList.add('nav--active');
-        },
-        complete: () => {
-            state.navigationItems[state.activeItem].element.classList.add('nav__item--active');
-        },
-        duration: 450,
-        easing: 'easeOutExpo',
-        opacity: 1,
-        translateX: [
-            { delay: 300, value: '270px', },
-        ],
-        scaleX: [
-            { value: 0 },
-            { value: 1 },
-        ],
-        targets: '.layout__frontdrop',
-    })
+    animation
+        .add({
+            backgroundColor: state.navigationItems[state.activeItem].color,
+            begin: () => {
+                state.root.classList.add('nav--active');
+            },
+            complete: () => {
+                state.navigationItems[state.activeItem].element.classList.add('nav__item--active');
+            },
+            duration: 450,
+            easing: 'easeOutExpo',
+            opacity: 1,
+            translateX: [
+                { delay: 300, value: '270px', },
+            ],
+            scaleX: [
+                { value: 0 },
+                { value: 1 },
+            ],
+            targets: '.layout__frontdrop',
+        })
         .add({
             duration: 70,
             opacity: [0, 1],
             targets: state.navigationItems[state.activeItem].childNavigation,
-        }).add({
+        })
+        .add({
             delay: anime.stagger(70),
             opacity: [0, 1],
             translateY: ['100%', '0'],
@@ -107,32 +105,34 @@ const animateHide = (state, complete) => {
         complete: complete,
     });
 
-    animation.add({
-        duration: 210,
-        opacity: [1, 0],
-        translateY: [0, '+=50px'],
-        targets: state.navigationItems[state.activeItem].childNavigation,
-    }).add({
-        complete: () => {
-            // Clean-up current active item.
-            state.root.classList.remove('nav--active');
-            state
-                .navigationItems[state.activeItem]
-                .element
-                .classList
-                .remove('nav__item--active')
-                ;
-        },
-        duration: 250,
-        easing: 'easeOutCirc',
-        scaleX: [
-            { value: 0, },
-        ],
-        translateX: [
-            { value: 0 },
-        ],
-        targets: '.layout__frontdrop',
-    });
+    animation
+        .add({
+            duration: 210,
+            opacity: [1, 0],
+            translateY: [0, '+=50px'],
+            targets: state.navigationItems[state.activeItem].childNavigation,
+        })
+        .add({
+            complete: () => {
+                // Clean-up current active item.
+                state.root.classList.remove('nav--active');
+                state
+                    .navigationItems[state.activeItem]
+                    .element
+                    .classList
+                    .remove('nav__item--active')
+                    ;
+            },
+            duration: 250,
+            easing: 'easeOutCirc',
+            scaleX: [
+                { value: 0, },
+            ],
+            translateX: [
+                { value: 0 },
+            ],
+            targets: '.layout__frontdrop',
+        });
 
     return animation;
 };
@@ -162,6 +162,13 @@ const animateHide = (state, complete) => {
             scaleX: [0, 1],
         })
         .add({
+            easing: 'easeOutExpo',
+            targets: '.layout__backdrop',
+            translateX: [
+                { delay: 350, value: (67) + '%' },
+            ],
+        })
+        .add({
             delay: anime.stagger(75),
             duration: 450,
             easing: 'easeOutCirc',
@@ -170,18 +177,11 @@ const animateHide = (state, complete) => {
             targets: '.nav--header-1 > .nav__item:not(.nav__item--home)',
         })
         .add({
-            easing: 'easeOutExpo',
-            targets: '.layout__backdrop',
-            translateX: [
-                { delay: 350, value: (67) + '%' },
-            ],
-        })
-        .add({
             duration: 350,
             easing: 'easeOutExpo',
             targets: '.hero-title span',
-            color: colorAccent 
-        }, 2500)
+            color: colorAccent
+        }, 1700)
         .add({
             duration: 350,
             easing: 'easeOutExpo',

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VISUADL - Backpropagation Explained</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <!-- Anime.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" defer></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Reenie+Beanie&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="layout">
+        <!-- Back button to return to main page -->
+        <div class="back-button" style="position: fixed; top: 10px; left: 10px;">
+            <button onclick="window.location.href='index.html'" style="padding: 10px 20px; background-color: var(--color-primary); color: white; border: none; border-radius: 5px; cursor: pointer;">
+                Back to Main Page
+            </button>
+        </div>
+
+        <div class="layout__wrapper">
+            <header class="layout__header">
+                <h1 class="hero-title">Backpropagation Explained</h1>
+                <p class="hero-slogan"><em>Learning from the Error, Step by Step!</em></p>
+            </header>
+
+            <main class="layout__main">
+                <!-- Section 1: What is Backpropagation? -->
+                <section class="backpropagation-section">
+                    <h2>What is Backpropagation?</h2>
+                    <p>Backpropagation is the algorithm that allows neural networks to learn by adjusting the weights based on the error between the predicted output and the actual result. It enables the network to optimize its performance over time.</p>
+                    <!-- Placeholder for an animation explaining the concept -->
+                    <div id="backprop-animation-1" class="animation-placeholder"></div>
+                </section>
+
+                <!-- Section 2: Neural Networks and Forward Pass -->
+                <section class="backpropagation-section">
+                    <h2>How Neural Networks Work</h2>
+                    <p>A neural network is composed of neurons arranged in layers. The forward pass processes the input through each layer, producing an output at the end.</p>
+                    <!-- Placeholder for forward pass animation -->
+                    <div id="backprop-animation-2" class="animation-placeholder"></div>
+                </section>
+
+                <!-- Section 3: Loss Function and Error Calculation -->
+                <section class="backpropagation-section">
+                    <h2>The Loss Function</h2>
+                    <p>The loss function measures how far the network's prediction is from the actual value. It helps the network understand how much error it has made, guiding backpropagation to adjust the weights.</p>
+                    <!-- Placeholder for loss function animation -->
+                    <div id="backprop-animation-3" class="animation-placeholder"></div>
+                </section>
+
+                <!-- Section 4: Gradient Descent and Learning Rate -->
+                <section class="backpropagation-section">
+                    <h2>Gradient Descent and Learning Rate</h2>
+                    <p>Gradient descent is an optimization technique that adjusts the weights in the direction that minimizes the loss. The learning rate controls the size of these adjustments.</p>
+                    <!-- Placeholder for gradient descent animation -->
+                    <div id="backprop-animation-4" class="animation-placeholder"></div>
+                </section>
+
+                <!-- Section 5: Backward Pass and Chain Rule -->
+                <section class="backpropagation-section">
+                    <h2>Backward Pass: The Chain Rule</h2>
+                    <p>The backward pass calculates the gradient of the loss function with respect to each weight by applying the chain rule, which helps adjust the weights accordingly.</p>
+                    <!-- Placeholder for backward pass animation -->
+                    <div id="backprop-animation-5" class="animation-placeholder"></div>
+                </section>
+
+                <!-- Section 6: Weight Updates -->
+                <section class="backpropagation-section">
+                    <h2>Weight Updates in Neural Networks</h2>
+                    <p>After calculating the gradients, the network updates the weights to minimize the loss. This process is repeated across multiple training samples.</p>
+                    <!-- Placeholder for weight update animation -->
+                    <div id="backprop-animation-6" class="animation-placeholder"></div>
+                </section>
+
+                <!-- Section 7: Overfitting and Regularization -->
+                <section class="backpropagation-section">
+                    <h2>Overfitting and Regularization</h2>
+                    <p>Overfitting occurs when a network learns the training data too well and fails to generalize. Regularization techniques help reduce overfitting and improve the network's performance on unseen data.</p>
+                    <!-- Placeholder for overfitting animation -->
+                    <div id="backprop-animation-7" class="animation-placeholder"></div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="/assets/js/animations.js" defer></script>
+</body>
+
+</html>

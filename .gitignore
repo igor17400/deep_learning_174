@@ -1,4 +1,53 @@
-venv/
-node_modules/
+### .gitignore
+
+```gitignore
+# Python cache files
 __pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+.Python
+
+# PyTorch Lightning checkpoints
+checkpoints/
+*.ckpt
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Manim-generated videos
 media/
+videos/
+
+# Visual Studio Code settings
+.vscode/
+*.code-workspace
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+
+# Logs
+*.log
+
+# Ignore node_modules (in case used for web project dependencies)
+node_modules/
+
+# HTML and CSS build artifacts (for `visu`)
+dist/
+build/
+
+# Git
+*.orig
+
+# General files
+pyrightconfig.json
+settings.json

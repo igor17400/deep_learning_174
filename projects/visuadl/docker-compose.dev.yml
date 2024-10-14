@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:8080"  # Map live-server port 8080 to localhost
+    volumes:
+      - .:/app       # Mount project directory to enable live reload
+    stdin_open: true
+    tty: true

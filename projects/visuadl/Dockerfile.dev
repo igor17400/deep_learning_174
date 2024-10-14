@@ -1,0 +1,20 @@
+# Use an official Node.js runtime as the base image
+FROM node:16
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy package.json and package-lock.json to install dependencies
+COPY package*.json ./
+
+# Install project dependencies including live-server
+RUN npm install live-server --global
+
+# Copy the rest of the project files into the container
+COPY . .
+
+# Expose the port that live-server will run on
+EXPOSE 8080
+
+# Command to start live-server
+CMD ["live-server", "--port=8080", "--host=0.0.0.0", "--watch=."]

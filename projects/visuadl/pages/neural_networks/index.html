@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VISUADL - Neural Networks</title>
-    <link rel="stylesheet" href="../global.css">
+    <link rel="stylesheet" href="../../assets/css/global.css">
     <link rel="stylesheet" href="./styles.css">
 
     <!-- Anime.js -->
@@ -23,7 +23,7 @@
 </head>
 
 <body>
-    <div class="layout">
+    <div class="layout__content_page">
         <!-- Back button to return to main page -->
         <div class="back-button" style="position: fixed; top: 10px; left: 10px;">
             <button onclick="window.location.href='../../index.html'"
@@ -34,8 +34,8 @@
 
         <div class="layout__wrapper">
             <header class="layout__header">
-                <h1 class="hero-title">Neural Networks Explained</h1>
-                <p class="hero-slogan"><em>Making Machines Smarter, One Weight Update at a Time!</em>
+                <h1 class="hero_title__content_page">Neural Networks Explained</h1>
+                <p class="hero_slogan__content_page"><em>Making Machines Smarter, One Weight Update at a Time!</em>
                 </p>
             </header>
 
@@ -76,7 +76,8 @@
                 <!-- Section 2: Neurons and Layers -->
                 <section class="backpropagation-section">
                     <h2>Neurons and Layers</h2>
-                    <p>Each neuron receives input, performs a weighted sum, and applies an activation function.
+                    <p>Each neuron (circles in the gif above) receives an input, performs a weighted sum, and applies an
+                        activation function.
                         Mathematically, a neuron in layer \( l \) can be described as:</p>
                     <p>$$ z^{(l)} = W^{(l)} \cdot a^{(l-1)} + b^{(l)} $$</p>
                     <p>where:
@@ -86,6 +87,14 @@
                         <li>\( b^{(l)} \): Bias vector for layer \( l \).</li>
                     </ul>
                     </p>
+                    <div class="sticky-container">
+                        <div class="sticky-outer">
+                            <div class="sticky">
+                                <p>Your content goes here.</p> <!-- Add your content inside the sticky note -->
+                            </div>
+                        </div>
+                    </div>
+
 
                     <p>The output of each neuron is passed through an activation function like ReLU or Sigmoid:</p>
                     <p>$$ a^{(l)} = f(z^{(l)}) $$</p>

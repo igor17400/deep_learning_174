@@ -4,7 +4,7 @@ const rootElement = document.querySelector('.layout');
 const rootStyles = getComputedStyle(document.documentElement); // Access root styles
 
 // Fetch color values from CSS variables
-const colorPrimary = rootStyles.getPropertyValue('--color-primary').trim();
+const colorPrimary = rootStyles.getPropertyValue('--color-secondary-opacity').trim();
 const colorSecondary = rootStyles.getPropertyValue('--color-secondary').trim();
 const colorAccent = rootStyles.getPropertyValue('--color-accent').trim();
 
@@ -77,7 +77,7 @@ const animateShow = (state) => {
             easing: 'easeOutExpo',
             opacity: 1,
             translateX: [
-                { delay: 300, value: '270px', },
+                { delay: 300, value: '370px', }, // Here is where we control the size of the navbar animation
             ],
             scaleX: [
                 { value: 0 },

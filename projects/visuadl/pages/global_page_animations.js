@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const sections = document.querySelectorAll('.backpropagation-section');
-    const postIts = document.querySelectorAll('.post-it');  // Select all post-its
+    const postIts = document.querySelectorAll('.sticky-container');  // Select all post-its
 
     // Scroll observer function
     const observer = new IntersectionObserver((entries, observer) => {
@@ -11,11 +10,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }, { threshold: 0.2 });
-
-    // Attach observer to each section
-    sections.forEach(section => {
-        observer.observe(section);
-    });
 
     // Scroll observer for post-it notes
     const postItObserver = new IntersectionObserver((entries, observer) => {
@@ -32,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
         postItObserver.observe(postIt);
     });
 
-    // Post-It "sticking" animation
+    // Post-It "sticking" animation with added effects
     const stickPostIt = (element) => {
         anime({
             targets: element,
@@ -41,10 +35,10 @@ document.addEventListener('DOMContentLoaded', function () {
             scale: [0.8, 1],
             opacity: [0, 1],
             easing: 'easeOutElastic(1, 0.5)',
-            duration: 2000
+            duration: 2000,
         });
     };
-
+    
     // Anime.js animations for placeholders
     const animatePlaceholders = () => {
         const placeholders = document.querySelectorAll('.animation-placeholder');

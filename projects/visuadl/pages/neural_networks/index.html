@@ -39,7 +39,7 @@
 
         <main class="layout__main">
             <!-- Section 1: Introduction to Neural Networks -->
-            <section class="backpropagation-section">
+            <section class="intro-neural-networks">
                 <h2>Introduction to Neural Networks</h2>
                 <p>A neural network is a computational model inspired by the way biological neural networks in the
                     human brain process information. It consists of layers of neurons, each neuron performing a
@@ -69,10 +69,7 @@
                         <img src="../../assets/gifs/simple_mlp.gif" alt="MLP Animation">
                     </div>
                 </div>
-            </section>
 
-            <!-- Section 2: Neurons and Layers -->
-            <section class="backpropagation-section">
                 <h2>Neurons and Layers</h2>
                 <p>Each neuron (circles in the gif above) receives an input, performs a weighted sum, and applies an
                     activation function.
@@ -85,14 +82,28 @@
                     <li>\( b^{(l)} \): Bias vector for layer \( l \).</li>
                 </ul>
                 </p>
-                <div class="sticky-container">
-                    <div class="sticky-outer">
-                        <div class="sticky">
-                            <p>Your content goes here.</p> <!-- Add your content inside the sticky note -->
+
+                <div class="wrapper">
+                    <div class="sticky-container">
+                        <div class="sticky-outer">
+                            <div class="sticky">
+                                <svg width="0" height="0">
+                                    <defs>
+                                        <clipPath id="stickyClip" clipPathUnits="objectBoundingBox">
+                                            <path
+                                                d="M 0 0 Q 0 0.69, 0.03 0.96 0.03 0.96, 1 0.96 Q 0.96 0.69, 0.96 0 0.96 0, 0 0"
+                                                stroke-linejoin="round" stroke-linecap="square" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <div class="sticky-content">
+                                    I get that it might be a bit confusing at first. Just think of this architecture
+                                    like a black box: you put something in, and you get something out.
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
 
                 <p>The output of each neuron is passed through an activation function like ReLU or Sigmoid:</p>
                 <p>$$ a^{(l)} = f(z^{(l)}) $$</p>
@@ -192,7 +203,7 @@
         </main>
     </div>
 
-    <script src="../global_animation.js" defer></script>
+    <script src="../global_page_animations.js" defer></script>
 </body>
 
 </html>

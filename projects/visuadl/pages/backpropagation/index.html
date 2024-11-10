@@ -33,109 +33,183 @@
         </div>
         <header class="layout__header__content_page">
             <h1 class="hero_title__content_page">Backpropagation Explained</h1>
-            <p class="hero_slogan__content_page"><em>Learning from the Error, Step by Step!</em></p>
+            <p class="hero_slogan__content_page"><em>Optimizing Neural Networks, One Gradient at a Time!</em></p>
         </header>
 
         <main class="layout__main">
-            <!-- Section 1: What is Backpropagation? -->
-            <section class="backpropagation-section">
-                <h2>What is Backpropagation?</h2>
-                <p>Backpropagation is the algorithm that allows neural networks to <span class="highlight">learn</span>
-                    by adjusting the weights
-                    based on the error between the predicted output and the actual result.</p>
-
-                <p>Mathematically, given a neural network with weights \( W \), inputs \( X \), and outputs \( Y \),
-                    the loss function is defined as:</p>
-                <p>$$ L(Y, \hat{Y}) = \frac{1}{2} \sum (Y - \hat{Y})^2 $$</p>
-                <p>Where \( \hat{Y} \) represents the network's prediction, and \( Y \) is the ground truth.</p>
-                <!-- Placeholder for an animation explaining the concept -->
-                <div id="backprop-animation-1" class="animation-placeholder"></div>
+            <!-- Section 1: Introduction to Backpropagation -->
+            <section class="intro-backpropagation">
+                <h2>Introduction to Backpropagation</h2>
+                <p>Backpropagation is a fundamental algorithm used to train neural networks. It involves calculating
+                    the gradient of the loss function with respect to each weight by the chain rule, allowing the
+                    network to update weights and minimize the error. This process is crucial for the network to learn
+                    from data and improve its predictions over time.</p>
+                <p>Backpropagation is typically used in conjunction with an optimization algorithm like gradient descent
+                    to iteratively adjust the weights and biases of the network.</p>
             </section>
 
-            <!-- Section 2: Neural Networks and Forward Pass -->
-            <section class="backpropagation-section">
-                <h2>How Neural Networks Work</h2>
-                <p>A neural network is composed of neurons arranged in layers. Each neuron applies a transformation
-                    to the input, usually using an activation function like the sigmoid \( \sigma(x) = \frac{1}{1 +
-                    e^{-x}} \).</p>
+            <!-- Section 2: The Chain Rule -->
+            <section class="chain-rule-section">
+                <h2>The Chain Rule</h2>
+                <p>The chain rule is a fundamental concept in <span class="highlight">calculus</span> that is crucial
+                    for understanding backpropagation
+                    in neural networks. It allows us to compute the <span class="highlight">derivative</span> of a <span
+                        class="highlight">composite function</span>, which is essential for propagating errors backward
+                    through the network.</p>
 
-                <p>The forward pass can be summarized as:</p>
-                <p>$$ Z = W \cdot X + b $$</p>
-                <p>Where \( W \) is the weight matrix, \( X \) is the input, and \( b \) is the bias. The activation
-                    function \( \sigma(Z) \) produces the output.</p>
+                <p>Intuitively, the chain rule can be thought of as a way to break down the derivative of a complex
+                    function into simpler parts. Imagine a function as a series of <span
+                        class="highlight">transformations</span> applied to an input. The chain rule helps us understand
+                    how a small change in the input affects the output by considering each transformation step.</p>
 
-                <!-- Post-It Sticky Notes -->
-                <div class="post-it" id="post-it-1">Important: The gradient descent update rule is $$ W^{(t+1)} =
-                    W^{(t)} - \eta \nabla_W L $$.</div>
-                <div class="post-it" id="post-it-2">Remember: The chain rule helps compute gradients: $$
-                    \frac{\partial L}{\partial W} = \frac{\partial L}{\partial \hat{Y}} \cdot \frac{\partial
-                    \hat{Y}}{\partial Z} \cdot \frac{\partial Z}{\partial W} $$.</div>
-                <div class="post-it" id="post-it-3">Note: Regularization helps reduce overfitting: $$ L_{total} = L
-                    + \lambda \sum ||W||^2 $$.</div>
+                <p>Mathematically, if we have a composite function \( f(g(x)) \), the chain rule states that the
+                    derivative of this function with respect to \( x \) is the product of the derivative of \( f \) with
+                    respect to \( g \) and the derivative of \( g \) with respect to \( x \):</p>
+                <p>$$ \frac{d}{dx} f(g(x)) = f'(g(x)) \cdot g'(x) $$</p>
 
+                <p>In the context of neural networks, the chain rule is used to calculate the gradient of the loss
+                    function with respect to each weight. Consider a simple neural network layer where the output \(
+                    \hat{Y} \) is a function of the weighted sum \( Z \), which in turn is a function of the weights \(
+                    W \):</p>
+                <p>$$ \hat{Y} = f(Z) \quad \text{and} \quad Z = W \cdot X + b $$</p>
 
-                <!-- Placeholder for forward pass animation -->
-                <div id="backprop-animation-2" class="animation-placeholder"></div>
-            </section>
-
-            <!-- Section 3: Loss Function and Error Calculation -->
-            <section class="backpropagation-section">
-                <h2>The Loss Function</h2>
-                <p>The loss function measures how far the network's prediction is from the actual value. A common
-                    loss function for regression is Mean Squared Error (MSE):</p>
-                <p>$$ L = \frac{1}{N} \sum_{i=1}^{N} (y_i - \hat{y}_i)^2 $$</p>
-                <p>Where \( y_i \) is the true value, and \( \hat{y}_i \) is the predicted value.</p>
-                <!-- Placeholder for loss function animation -->
-                <div id="backprop-animation-3" class="animation-placeholder"></div>
-            </section>
-
-            <!-- Section 4: Gradient Descent and Learning Rate -->
-            <section class="backpropagation-section">
-                <h2>Gradient Descent and Learning Rate</h2>
-                <p>Gradient descent is an optimization algorithm used to minimize the loss function by iteratively
-                    updating the weights.</p>
-
-                <p>The weight update rule is:</p>
-                <p>$$ W^{(t+1)} = W^{(t)} - \eta \nabla_W L $$</p>
-                <p>Where \( \eta \) is the learning rate, and \( \nabla_W L \) is the gradient of the loss with
-                    respect to the weights.</p>
-                <!-- Placeholder for gradient descent animation -->
-                <div id="backprop-animation-4" class="animation-placeholder"></div>
-            </section>
-
-            <!-- Section 5: Backward Pass and Chain Rule -->
-            <section class="backpropagation-section">
-                <h2>Backward Pass: The Chain Rule</h2>
-                <p>The backward pass computes the gradient of the loss function with respect to each weight by
-                    applying the chain rule from calculus:</p>
+                <p>To find how the loss \( L \) changes with respect to the weights \( W \), we apply the chain rule:
+                </p>
                 <p>$$ \frac{\partial L}{\partial W} = \frac{\partial L}{\partial \hat{Y}} \cdot \frac{\partial
                     \hat{Y}}{\partial Z} \cdot \frac{\partial Z}{\partial W} $$</p>
-                <p>This allows the network to adjust the weights accordingly to minimize the error.</p>
-                <!-- Placeholder for backward pass animation -->
-                <div id="backprop-animation-5" class="animation-placeholder"></div>
+
+                <p>Breaking it down:</p>
+                <ul>
+                    <li>\( \frac{\partial L}{\partial \hat{Y}} \): This term represents how the loss changes with
+                        respect to the predicted output. It is often straightforward to compute, especially if the loss
+                        function is simple, like mean squared error or cross-entropy.</li>
+                    <li>\( \frac{\partial \hat{Y}}{\partial Z} \): This term captures how the output of the layer
+                        changes with respect to the weighted sum. It involves the derivative of the <span
+                            class="highlight">activation function</span> used in the layer, such as ReLU or Sigmoid.
+                    </li>
+                    <li>\( \frac{\partial Z}{\partial W} \): This term describes how the weighted sum changes with
+                        respect to the weights. It is typically the input to the layer, \( X \), since \( Z = W \cdot X
+                        + b \).</li>
+                </ul>
+
+                <p>By applying the chain rule, we can efficiently compute the gradients needed to update the weights and
+                    biases of the network, allowing it to learn from data.</p>
             </section>
 
-            <!-- Section 6: Weight Updates -->
-            <section class="backpropagation-section">
-                <h2>Weight Updates in Neural Networks</h2>
-                <p>After calculating the gradients, the network updates the weights in the opposite direction of the
-                    gradient to minimize the loss. The weight update formula is:</p>
-                <p>$$ W = W - \eta \frac{\partial L}{\partial W} $$</p>
-                <p>This process is repeated for every training sample or mini-batch.</p>
-                <!-- Placeholder for weight update animation -->
-                <div id="backprop-animation-6" class="animation-placeholder"></div>
+            <!-- Section 3: Gradient Descent -->
+            <section class="gradient-descent-section">
+                <h2>Gradient Descent</h2>
+                <p>Gradient descent is an <span class="highlight">optimization technique</span> used to minimize the
+                    loss function by iteratively
+                    updating the weights in the direction of the <span class="highlight">negative gradient</span>. The
+                    goal is to find the set of
+                    weights that minimizes the loss function, thereby improving the model's performance.</p>
+                <p>The weight update rule is given by:</p>
+                <p>$$ W^{(t+1)} = W^{(t)} - \eta \nabla_W L $$</p>
+                <p>where:
+                <ul>
+                    <li>\( W^{(t)} \) is the weight at step \( t \).</li>
+                    <li>\( \eta \) is the <span class="highlight">learning rate</span>, a hyperparameter that controls
+                        the step size of each update.</li>
+                    <li>\( \nabla_W L \) is the gradient of the loss with respect to the weights.</li>
+                </ul>
+                </p>
+                <div class="wrapper">
+                    <div class="sticky-container">
+                        <div class="sticky-outer">
+                            <div class="sticky">
+                                <svg width="0" height="0">
+                                    <defs>
+                                        <clipPath id="stickyClip" clipPathUnits="objectBoundingBox">
+                                            <path
+                                                d="M 0 0 Q 0 0.69, 0.03 0.96 0.03 0.96, 1 0.96 Q 0.96 0.69, 0.96 0 0.96 0, 0 0"
+                                                stroke-linejoin="round" stroke-linecap="square" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <div class="sticky-content">
+                                    Remember: Choosing the right learning rate> is crucial! Too large can cause
+                                    divergence, too small can slow convergence.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
 
-            <!-- Section 7: Overfitting and Regularization -->
-            <section class="backpropagation-section">
-                <h2>Overfitting and Regularization</h2>
-                <p>Overfitting occurs when the model performs well on the training data but fails to generalize to
-                    unseen data. One common regularization technique is L2 regularization, which adds a penalty term
-                    to the loss function:</p>
+            <!-- Section 4: Regularization -->
+            <section class="regularization-section">
+                <h2>Regularization</h2>
+                <p>Regularization techniques are used to prevent <span class="highlight">overfitting</span>, which
+                    occurs when a model performs well
+                    on training data but poorly on unseen data. Overfitting happens when the model learns the noise in
+                    the training data rather than the underlying pattern, leading to poor generalization.</p>
+
+                <p>One common regularization technique is <span class="highlight">L2 regularization</span>, also known
+                    as <span class="highlight">Ridge Regression</span>, which adds a penalty term to the loss function:
+                </p>
                 <p>$$ L_{total} = L + \lambda \sum ||W||^2 $$</p>
-                <p>This prevents the weights from growing too large and helps the model generalize better.</p>
-                <!-- Placeholder for overfitting animation -->
-                <div id="backprop-animation-7" class="animation-placeholder"></div>
+                <p>where \( \lambda \) is the <span class="highlight">regularization strength</span>, and \( W \) is the
+                    weight matrix. The penalty
+                    term discourages large weights, promoting simpler models that generalize better to new data.</p>
+
+                <p>Another popular technique is <span class="highlight">L1 regularization</span>, or <span
+                        class="highlight">Lasso Regression</span>, which adds an absolute value penalty to the loss
+                    function:</p>
+                <p>$$ L_{total} = L + \lambda \sum |W| $$</p>
+                <p>L1 regularization can lead to sparse models where some weights are exactly zero, effectively
+                    selecting a subset of features and reducing model complexity.</p>
+
+                <p>In addition to L1 and L2 regularization, there are other techniques such as:</p>
+                <ul>
+                    <li><strong>Dropout:</strong> A technique where randomly selected neurons are ignored during
+                        training. This prevents neurons from co-adapting too much and helps in reducing overfitting.
+                    </li>
+                    <li><strong>Early Stopping:</strong> A method where training is stopped as soon as the performance
+                        on a validation dataset starts to degrade, preventing the model from overfitting to the training
+                        data.</li>
+                    <li><strong>Data Augmentation:</strong> Involves increasing the diversity of the training data by
+                        applying random transformations, such as rotations or flips, to the input data.</li>
+                </ul>
+
+                <p>Regularization is a crucial component in building robust models that perform well on unseen data. By
+                    incorporating these techniques, we can ensure that our models are not only accurate but also
+                    generalize well to new inputs.</p>
+            </section>
+
+            <!-- Section 5: Practical Considerations -->
+            <section class="practical-considerations-section">
+                <h2>Practical Considerations</h2>
+                <p>When implementing backpropagation, several factors can significantly impact the training process and
+                    convergence speed:</p>
+                <ul>
+                    <li><strong>Learning Rate:</strong> As mentioned earlier, the learning rate determines the step size
+                        during weight updates. It is crucial to choose an appropriate value to ensure efficient
+                        convergence.</li>
+                    <li><strong>Initialization:</strong> Proper initialization of weights can help avoid issues such as
+                        vanishing or exploding gradients. Techniques like Xavier or He initialization are commonly
+                        used.</li>
+                    <li><strong>Batch Size:</strong> The number of training examples used in one iteration of
+                        backpropagation. Smaller batch sizes can lead to noisy updates, while larger batch sizes can
+                        improve stability but require more memory.</li>
+                    <li><strong>Momentum:</strong> A technique that helps accelerate gradient descent by adding a
+                        fraction of the previous update to the current update, helping to navigate ravines in the loss
+                        surface.</li>
+                </ul>
+            </section>
+
+            <!-- Section 6: Advanced Topics -->
+            <section class="advanced-topics-section">
+                <h2>Advanced Topics</h2>
+                <p>Backpropagation can be extended and improved with various advanced techniques:</p>
+                <ul>
+                    <li><strong>Adaptive Learning Rates:</strong> Methods like AdaGrad, RMSProp, and Adam adjust the
+                        learning rate during training, allowing for more efficient convergence.</li>
+                    <li><strong>Dropout:</strong> A regularization technique where randomly selected neurons are ignored
+                        during training, reducing overfitting and improving generalization.</li>
+                    <li><strong>Batch Normalization:</strong> A technique that normalizes the inputs of each layer,
+                        improving training speed and stability.</li>
+                </ul>
             </section>
         </main>
     </div>

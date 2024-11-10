@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VISUADL - Chain Rule</title>
+    <link rel="stylesheet" href="../../../assets/css/global.css">
+    <link rel="stylesheet" href="./styles.css">
+
+    <!-- Anime.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" defer></script>
+
+    <!-- MathJax for Mathematical Rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Reenie+Beanie&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="layout__content_page">
+        <!-- Back button to return to main page -->
+        <div class="back-button" style="position: fixed; top: 10px; left: 10px;">
+            <button onclick="window.location.href='../../../index.html'"
+                style="padding: 10px 20px; background-color: var(--color-primary); color: white; border: none; border-radius: 5px; cursor: pointer;">
+                Back to Main Page
+            </button>
+        </div>
+        <header class="layout__header__content_page">
+            <h1 class="hero_title__content_page">Understanding the Chain Rule</h1>
+            <p class="hero_slogan__content_page"><em>Linking Derivatives for Complex Functions</em></p>
+        </header>
+
+        <main class="layout__main">
+            <section class="chain-rule-section">
+                <h2>Introduction to the Chain Rule</h2>
+                <p>The <span class="highlight">chain rule</span> is a fundamental concept in calculus used to find the
+                    derivative of composite functions. It is essential for understanding how changes in one variable
+                    affect another in a multi-step process.</p>
+
+                <h2>Mathematical Formulation</h2>
+                <p>For a composite function \( f(g(x)) \), the chain rule states:</p>
+                <p>$$ \frac{d}{dx} f(g(x)) = f'(g(x)) \cdot g'(x) $$</p>
+                <p>This means the derivative of \( f \) with respect to \( x \) is the product of the derivative of \( f
+                    \) with respect to \( g \) and the derivative of \( g \) with respect to \( x \).</p>
+
+                <h2>Simple Example</h2>
+                <p>Consider \( h(x) = \sin(x^2) \). To find \( h'(x) \), apply the chain rule:</p>
+                <p>Let \( u = x^2 \), then \( h(x) = \sin(u) \).</p>
+                <p>Thus, \( h'(x) = \cos(u) \cdot 2x = \cos(x^2) \cdot 2x \).</p>
+
+                <h2>Intermediate Example</h2>
+                <p>Let's find the derivative of \( y = e^{3x^2 + 2x} \).</p>
+                <p>Set \( u = 3x^2 + 2x \), then \( y = e^u \).</p>
+                <p>Using the chain rule, \( \frac{dy}{dx} = e^u \cdot \frac{du}{dx} \).</p>
+                <p>Calculate \( \frac{du}{dx} = 6x + 2 \).</p>
+                <p>Thus, \( \frac{dy}{dx} = e^{3x^2 + 2x} \cdot (6x + 2) \).</p>
+
+                <h2>Advanced Example</h2>
+                <p>Consider a more complex function \( z = \ln(\sqrt{x^2 + y^2}) \).</p>
+                <p>First, set \( u = \sqrt{x^2 + y^2} \) and \( v = x^2 + y^2 \).</p>
+                <p>Then, \( z = \ln(u) \) and \( u = v^{1/2} \).</p>
+                <p>Using the chain rule:</p>
+                <p>$$ \frac{\partial z}{\partial x} = \frac{1}{u} \cdot \frac{\partial u}{\partial x} $$</p>
+                <p>And:</p>
+                <p>$$ \frac{\partial u}{\partial x} = \frac{1}{2\sqrt{v}} \cdot 2x = \frac{x}{\sqrt{x^2 + y^2}} $$</p>
+                <p>Thus,</p>
+                <p>$$ \frac{\partial z}{\partial x} = \frac{1}{\sqrt{x^2 + y^2}} \cdot \frac{x}{\sqrt{x^2 + y^2}} =
+                    \frac{x}{x^2 + y^2} $$</p>
+
+                <h2>Visualizing the Chain Rule</h2>
+                <p>Imagine a function as a series of transformations applied to an input. The chain rule helps us
+                    understand how a small change in the input affects the output by considering each transformation
+                    step. This is akin to tracing the path of a river through a series of dams and channels, where each
+                    segment affects the flow downstream.</p>
+
+                <h2>Applications in Real Life</h2>
+                <p>The chain rule is not just a theoretical tool; it has practical applications in fields such as
+                    physics, engineering, and economics. For example, in physics, it helps in understanding how a change
+                    in one variable, like time, affects another, like velocity, through intermediate variables like
+                    acceleration.</p>
+            </section>
+        </main>
+    </div>
+</body>
+
+</html>

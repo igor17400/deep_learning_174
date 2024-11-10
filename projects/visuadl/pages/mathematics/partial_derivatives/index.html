@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VISUADL - Partial Derivatives</title>
+    <link rel="stylesheet" href="../../../assets/css/global.css">
+    <link rel="stylesheet" href="./styles.css">
+
+    <!-- Anime.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" defer></script>
+
+    <!-- MathJax for Mathematical Rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Reenie+Beanie&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="layout__content_page">
+        <!-- Back button to return to main page -->
+        <div class="back-button" style="position: fixed; top: 10px; left: 10px;">
+            <button onclick="window.location.href='../../../index.html'"
+                style="padding: 10px 20px; background-color: var(--color-primary); color: white; border: none; border-radius: 5px; cursor: pointer;">
+                Back to Main Page
+            </button>
+        </div>
+        <header class="layout__header__content_page">
+            <h1 class="hero_title__content_page">Understanding Partial Derivatives</h1>
+            <p class="hero_slogan__content_page"><em>Analyzing Multivariable Functions</em></p>
+        </header>
+
+        <main class="layout__main">
+            <section class="partial-derivatives-section">
+                <h2>Introduction to Partial Derivatives</h2>
+                <p><span class="highlight">Partial derivatives</span> are used to measure how a function changes as one
+                    of its variables changes, while keeping other variables constant. They are essential in
+                    multivariable calculus and are widely used in fields such as physics, engineering, and economics.
+                </p>
+
+                <h2>Mathematical Formulation</h2>
+                <p>For a function \( f(x, y) \), the partial derivative with respect to \( x \) is:</p>
+                <p>$$ \frac{\partial f}{\partial x} = \lim_{\Delta x \to 0} \frac{f(x + \Delta x, y) - f(x, y)}{\Delta
+                    x} $$</p>
+                <p>This represents the rate of change of the function \( f \) with respect to \( x \), while keeping \(
+                    y \) constant.</p>
+
+                <h2>Simple Example</h2>
+                <p>Consider \( f(x, y) = x^2y + y^3 \). The partial derivative with respect to \( x \) is:</p>
+                <p>$$ \frac{\partial f}{\partial x} = 2xy $$</p>
+                <p>And with respect to \( y \):</p>
+                <p>$$ \frac{\partial f}{\partial y} = x^2 + 3y^2 $$</p>
+
+                <h2>Intermediate Example</h2>
+                <p>Let's find the partial derivatives of \( g(x, y, z) = x^2y + yz + z^3 \).</p>
+                <p>With respect to \( x \):</p>
+                <p>$$ \frac{\partial g}{\partial x} = 2xy $$</p>
+                <p>With respect to \( y \):</p>
+                <p>$$ \frac{\partial g}{\partial y} = x^2 + z $$</p>
+                <p>With respect to \( z \):</p>
+                <p>$$ \frac{\partial g}{\partial z} = y + 3z^2 $$</p>
+
+                <h2>Advanced Example</h2>
+                <p>Consider a more complex function \( h(x, y) = e^{xy} \sin(x + y) \).</p>
+                <p>To find \( \frac{\partial h}{\partial x} \), use the product rule and chain rule:</p>
+                <p>$$ \frac{\partial h}{\partial x} = e^{xy} \cdot y \cdot \sin(x + y) + e^{xy} \cdot \cos(x + y) $$</p>
+                <p>To find \( \frac{\partial h}{\partial y} \), similarly apply the product rule and chain rule:</p>
+                <p>$$ \frac{\partial h}{\partial y} = e^{xy} \cdot x \cdot \sin(x + y) + e^{xy} \cdot \cos(x + y) $$</p>
+
+                <h2>Visualizing Partial Derivatives</h2>
+                <p>Imagine a surface in three-dimensional space. The partial derivative with respect to \( x \) at a
+                    point on the surface represents the slope of the tangent line in the \( x \)-direction, while
+                    keeping \( y \) constant. Similarly, the partial derivative with respect to \( y \) represents the
+                    slope in the \( y \)-direction.</p>
+
+                <h2>Applications in Real Life</h2>
+                <p>Partial derivatives are used in various fields to model and analyze systems with multiple variables.
+                    In physics, they are used to describe how physical quantities change with respect to each other. In
+                    economics, they help in understanding how changes in one economic variable affect others.</p>
+            </section>
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VISUADL - Convolutional Neural Networks (CNNs)</title>
+    <link rel="stylesheet" href="../../../assets/css/global.css">
+    <link rel="stylesheet" href="./styles.css">
+
+    <!-- Anime.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" defer></script>
+
+    <!-- MathJax for Mathematical Rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Reenie+Beanie&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="layout__content_page">
+        <!-- Back button to return to main page -->
+        <div class="back-button" style="position: fixed; top: 10px; left: 10px;">
+            <button onclick="window.location.href='../../../index.html'"
+                style="padding: 10px 20px; background-color: var(--color-primary); color: white; border: none; border-radius: 5px; cursor: pointer;">
+                Back to Main Page
+            </button>
+        </div>
+        <header class="layout__header__content_page">
+            <h1 class="hero_title__content_page">Understanding Convolutional Neural Networks (CNNs)</h1>
+            <p class="hero_slogan__content_page"><em>Revolutionizing Image Processing and Beyond</em></p>
+        </header>
+
+        <main class="layout__main">
+            <section class="cnns-section">
+                <h2>Introduction to CNNs</h2>
+                <p><span class="highlight">Convolutional Neural Networks (CNNs)</span> have revolutionized the field
+                    of computer vision and are now a cornerstone in the development of intelligent systems. But why
+                    exactly do we need CNNs, and what makes them so effective?</p>
+
+                <p>Traditional neural networks, such as <span class="highlight">fully connected networks</span>,
+                    struggle with high-dimensional data like images. For instance, a color image of size 256x256
+                    pixels has 256x256x3 = 196,608 input features. Processing such a large number of features with a
+                    fully connected network would require an enormous number of parameters, leading to <span
+                        class="highlight">overfitting</span> and <span class="highlight">computational
+                        inefficiency</span>.</p>
+
+                <p>CNNs address these challenges through three key innovations:</p>
+
+                <h3>1. Local Receptive Fields</h3>
+                <p>CNNs use <span class="highlight">local receptive fields</span>, or filters, to focus on small,
+                    localized regions of the input image. This means that instead of connecting every input pixel to
+                    every neuron in the next layer, CNNs connect only a small region of the input to each neuron.
+                    Mathematically, this is represented by the <span class="highlight">convolution operation</span>:
+                </p>
+                <p>$$ (I * K)(x, y) = \sum_m \sum_n I(m, n) \cdot K(x - m, y - n) $$</p>
+                <p>where \( I \) is the input image and \( K \) is the filter or kernel. This operation allows CNNs
+                    to detect local patterns such as <span class="highlight">edges</span> and <span
+                        class="highlight">textures</span>.</p>
+
+                <h3>2. Shared Weights</h3>
+                <p>In CNNs, the same filter (or set of filters) is applied across different regions of the input
+                    image. This concept of <span class="highlight">shared weights</span> reduces the number of
+                    parameters significantly, as the same weights are used for multiple locations. This not only
+                    reduces the risk of overfitting but also allows the network to learn <span
+                        class="highlight">translation-invariant features</span>.</p>
+
+                <h3>3. Spatial Hierarchies</h3>
+                <p>CNNs are designed to learn <span class="highlight">spatial hierarchies</span> of features. The
+                    initial layers of a CNN might learn simple features like edges and corners, while deeper layers
+                    learn more complex features like shapes and objects. This hierarchical learning is achieved
+                    through the stacking of multiple convolutional and pooling layers, allowing the network to build
+                    a rich representation of the input data.</p>
+
+                <p>Overall, CNNs are essential because they efficiently handle the high dimensionality of image
+                    data, learn hierarchical feature representations, and generalize well to new data. These
+                    properties make CNNs particularly powerful for tasks such as <span class="highlight">image
+                        classification</span>, <span class="highlight">object detection</span>, and more.</p>
+
+                <h2>Mathematical Operations in CNNs</h2>
+                <p>The core mathematical operations in <span class="highlight">Convolutional Neural Networks
+                        (CNNs)</span> involve <span class="highlight">convolutions</span>, <span
+                        class="highlight">pooling</span>, and <span class="highlight">activation functions</span>.
+                    These operations are fundamental in extracting and learning features from the input data,
+                    enabling CNNs to perform complex tasks such as image recognition and classification.</p>
+
+                <h3>Convolution Operation</h3>
+                <p>The <span class="highlight">convolution operation</span> is central to CNNs. It involves sliding
+                    a small matrix, known as a <span class="highlight">filter</span> or <span
+                        class="highlight">kernel</span>, over the input data to produce a <span
+                        class="highlight">feature map</span>. Mathematically, for an input \( I \) and a filter \( K
+                    \), the convolution is defined as:</p>
+                <p>$$ (I * K)(x, y) = \sum_m \sum_n I(m, n) \cdot K(x - m, y - n) $$</p>
+                <p>This operation allows CNNs to detect local patterns such as <span class="highlight">edges</span>,
+                    <span class="highlight">textures</span>, and <span class="highlight">shapes</span> in images,
+                    which are crucial for understanding the content of the image.
+                </p>
+
+                <h3>Pooling Operation</h3>
+                <p><span class="highlight">Pooling</span> is a down-sampling technique used to reduce the
+                    dimensionality of feature maps. The most common type is <span class="highlight">max
+                        pooling</span>, which selects the maximum value from a region of the feature map. This
+                    operation helps in making the network invariant to small translations in the input, reducing
+                    computational complexity and preventing overfitting.</p>
+
+                <h3>Activation Functions</h3>
+                <p><span class="highlight">Activation functions</span> introduce non-linearity into the network,
+                    allowing it to learn complex patterns. Common activation functions used in CNNs include <span
+                        class="highlight">ReLU (Rectified Linear Unit)</span>, which is defined as:</p>
+                <p>$$ \text{ReLU}(x) = \max(0, x) $$</p>
+                <p>ReLU helps in accelerating the convergence of the training process by mitigating the vanishing
+                    gradient problem.</p>
+
+                <p>Overall, these mathematical operations work together to enable CNNs to learn and generalize from
+                    data, making them powerful tools for a wide range of applications.</p>
+
+                <h2>Convolution</h2>
+                <p>Convolution is a mathematical operation that combines two functions to produce a third function. In
+                    the context of CNNs, it involves sliding a filter (or kernel) over the input data to produce a
+                    feature map. Mathematically, for an input \( I \) and a filter \( K \), the convolution operation is
+                    defined as:</p>
+                <p>$$ (I * K)(x, y) = \sum_m \sum_n I(m, n) \cdot K(x - m, y - n) $$</p>
+                <p>This operation helps in detecting features such as edges, corners, and textures in images.</p>
+
+                <h2>Pooling</h2>
+                <p>Pooling is a down-sampling operation that reduces the dimensionality of feature maps, helping to make
+                    the network invariant to small translations in the input. The most common type is max pooling, which
+                    selects the maximum value from a region of the feature map. This operation helps in reducing
+                    computational complexity and preventing overfitting.</p>
+
+                <h2>Structured Outputs</h2>
+                <p>CNNs are capable of producing structured outputs, such as segmentation maps or bounding boxes, which
+                    are essential for tasks like object detection and image segmentation. This is achieved by using
+                    specialized layers and architectures that can handle spatial information effectively.</p>
+
+                <h2>Data Types</h2>
+                <p>CNNs can process various types of data, including grayscale and color images, videos, and even 3D
+                    data. They are versatile and can be adapted to different input formats by adjusting the architecture
+                    and parameters of the network.</p>
+
+                <h2>Theory Behind CNNs</h2>
+                <p>The theory behind <span class="highlight">Convolutional Neural Networks (CNNs)</span> is rooted in
+                    the concept of <span class="highlight">local receptive fields</span>, <span class="highlight">shared
+                        weights</span>, and <span class="highlight">spatial hierarchies</span>. These principles allow
+                    CNNs to learn complex patterns and representations from data, making them highly effective for tasks
+                    that involve spatial information.</p>
+
+                <h3>Local Receptive Fields</h3>
+                <p>Local receptive fields enable CNNs to focus on small, localized regions of the input data. This
+                    approach mimics the way the human visual system processes visual information, allowing the network
+                    to detect local patterns such as edges and textures. Mathematically, this is represented by the
+                    convolution operation:</p>
+                <p>$$ (I * K)(x, y) = \sum_m \sum_n I(m, n) \cdot K(x - m, y - n) $$</p>
+                <p>where \( I \) is the input image and \( K \) is the filter or kernel.</p>
+
+                <h3>Shared Weights</h3>
+                <p>Shared weights mean that the same filter is applied across different regions of the input. This
+                    reduces the number of parameters and allows the network to learn translation-invariant features,
+                    which are crucial for recognizing patterns regardless of their position in the input. The weight
+                    sharing is mathematically expressed as:</p>
+                <p>$$ W_{shared} = W_{i,j} \quad \forall \, i, j $$</p>
+                <p>where \( W_{i,j} \) are the weights of the filter applied across the input.</p>
+
+                <h3>Spatial Hierarchies</h3>
+                <p>Spatial hierarchies refer to the layered structure of CNNs, where each layer learns increasingly
+                    complex features. Initial layers might detect simple patterns like edges, while deeper layers
+                    capture more abstract features like shapes and objects. This hierarchical learning is achieved
+                    through the stacking of multiple convolutional and pooling layers, mathematically represented as:
+                </p>
+                <p>$$ F^{(l+1)} = \sigma(W^{(l)} * F^{(l)} + b^{(l)}) $$</p>
+                <p>where \( F^{(l)} \) is the feature map at layer \( l \), \( W^{(l)} \) are the weights, \( b^{(l)} \)
+                    is the bias, and \( \sigma \) is the activation function.</p>
+
+                <h2>Applicability of CNNs</h2>
+                <p><span class="highlight">CNNs</span> are widely used in various applications, including <span
+                        class="highlight">image classification</span>, <span class="highlight">object detection</span>,
+                    <span class="highlight">facial recognition</span>, and <span class="highlight">medical image
+                        analysis</span>. Their ability to learn and generalize from data makes them a powerful tool in
+                    both research and industry.</p>
+
+                <p>In image classification, CNNs can automatically identify and categorize objects within images. The
+                    classification process can be mathematically described by the softmax function, which converts the
+                    output scores into probabilities:</p>
+                <p>$$ P(y = c \mid x) = \frac{e^{z_c}}{\sum_{j} e^{z_j}} $$</p>
+                <p>where \( z_c \) is the output score for class \( c \), and the denominator sums over all classes.</p>
+
+                <h2>Random or Unsupervised Features</h2>
+                <p><span class="highlight">CNNs</span> can also be used to learn features in an <span
+                        class="highlight">unsupervised manner</span>, using techniques such as <span
+                        class="highlight">autoencoders</span> or <span class="highlight">generative adversarial networks
+                        (GANs)</span>. These methods allow CNNs to learn useful representations from data without the
+                    need for labeled examples.</p>
+
+                <p>Autoencoders are neural networks designed to learn efficient representations of data by compressing
+                    input into a lower-dimensional space and then reconstructing it. The reconstruction error is
+                    minimized using a loss function, typically the mean squared error:</p>
+                <p>$$ L = \frac{1}{n} \sum_{i=1}^{n} (x_i - \hat{x}_i)^2 $$</p>
+                <p>where \( x_i \) is the input and \( \hat{x}_i \) is the reconstructed output.</p>
+
+                <p>GANs consist of two networks, a generator and a discriminator, that compete against each other to
+                    produce realistic data samples. The generator's objective is to minimize the following loss:</p>
+                <p>$$ \min_G \max_D V(D, G) = \mathbb{E}_{x \sim p_{data}(x)}[\log D(x)] + \mathbb{E}_{z \sim
+                    p_z(z)}[\log(1 - D(G(z)))] $$</p>
+                <p>where \( D(x) \) is the discriminator's estimate of the probability that \( x \) is real, and \( G(z)
+                    \) is the generator's output given noise \( z \).</p>
+            </section>
+        </main>
+    </div>
+</body>
+
+</html>

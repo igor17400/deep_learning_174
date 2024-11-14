@@ -105,15 +105,44 @@
                     </div>
                 </div>
 
-                <p>The output of each neuron is passed through an activation function like ReLU or Sigmoid:</p>
+                <p>Let's see a simple visualization of how a neuron works. Of course this visualization is not entirely
+                    correct
+                    with respect to the actual mathematical operations that take place in a neuron, but it gives a good
+                    idea of what's happening. Basically, the neuron takes an input (an object with a color), multiplies
+                    it by a weight, and adds a bias.
+                </p>
+
+
+                <div class="wrapper">
+                    <div class="frame">
+                        <img src="../../assets/gifs/black_box_mlp.gif" alt="Black Box of a Neuron Animation">
+                    </div>
+                </div>
+
+                <p>However, if you're already familiar with how neural networks work, you can definitely point out
+                    something missing
+                    in the previous animation. What is it? The <span class="highlight">Activation function</span>!
+                </p>
+
+                <p>The output of each neuron is passed through an activation function like <span
+                        class="highlight">ReLU</span> or <span class="highlight">Sigmoid</span>. That is, given the
+                    output of a neuron \( z^{(l)} \), the activation function is applied to it to get the output
+                    \( a^{(l)} \):</p>
                 <p>$$ a^{(l)} = f(z^{(l)}) $$</p>
-                <p>where \( f \) is the activation function, such as:
+                <p>where \( f \) is the activation function.</p>
+                <!-- <p>Thus, the animation above is actually just a step of the entire process
+                    of a neuron. Let's see a more complete animation of the process:</p>
+                <div class="wrapper">
+                    <div class="frame">
+                        <img src="../../assets/gifs/neuron_animation.gif" alt="Neuron Animation">
+                    </div>
+                </div> -->
+                <p>For instance we can have different activation functions defined by the following equations:</p>
                 <ul>
                     <li>Sigmoid: \( f(x) = \frac{1}{1 + e^{-x}} \)</li>
                     <li>ReLU: \( f(x) = \max(0, x) \)</li>
                     <li>Tanh: \( f(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}} \)</li>
                 </ul>
-                </p>
             </section>
 
             <!-- Section 3: Forward Propagation -->

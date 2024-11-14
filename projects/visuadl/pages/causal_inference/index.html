@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VISUADL - Causal Inference</title>
+    <link rel="stylesheet" href="../../../assets/css/global.css">
+    <link rel="stylesheet" href="./styles.css">
+
+    <!-- Anime.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" defer></script>
+
+    <!-- MathJax for Mathematical Rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Reenie+Beanie&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="layout__content_page">
+        <!-- Back button to return to main page -->
+        <div class="back-button" style="position: fixed; top: 10px; left: 10px;">
+            <button onclick="window.location.href='../../../index.html'"
+                style="padding: 10px 20px; background-color: var(--color-primary); color: white; border: none; border-radius: 5px; cursor: pointer;">
+                Back to Main Page
+            </button>
+        </div>
+        <header class="layout__header__content_page">
+            <h1 class="hero_title__content_page">Understanding Causal Inference</h1>
+            <p class="hero_slogan__content_page"><em>Uncovering the "Weird" Relationships Behind Data</em></p>
+        </header>
+        <main class="layout__main">
+            <section class="causal-inference-section">
+                <h2>Introduction to Causal Inference</h2>
+                <p>Causal inference is the process of determining whether one variable <span
+                        class="highlight">causes</span> another variable to
+                    <span class="highlight">change</span>. It is a fundamental concept in statistics and machine
+                    learning, and it is used to
+                    understand the relationships between variables in a dataset.
+                </p>
+                <p>But before we can learn the fundamentals of causal inference let's understand what is <span
+                        class="highlight">Randomized Controlled Tests (RCTs)</span> are.</p>
+                <h3>Randomized Controlled Tests (RCTs)</h3>
+                <p>A RCTs is an experiment where the subjects are randomly assigned to different groups, and the
+                    effect of the treatment is observed.</p>
+                <p>But what's is a <span class="highlight">treatment</span>?</p>
+                <p>In the context of causal inference, a treatment refers to an
+                    intervention or an action that is intentionally applied to a group of subjects to observe its effect
+                    on an outcome. Here are some key aspects of a treatment:</p>
+                <ul>
+                    <li>Intentional application: The treatment is deliberately applied to a group of subjects,
+                        as <span class="highlight">opposed to a natural occurrence</span>.</li>
+                    <li>Manipulation of a variable: The treatment involves <span class="highlight">changing the value
+                            of a specific
+                            variable</span> to observe its effect on the outcome.</li>
+                    <li>Comparison to a control group: The effect of the treatment is compared to a <span
+                            class="highlight">control
+                            group</span> that does not receive the treatment.</li>
+                    <li>Goal of causal inference: The primary goal is to establish a <span
+                            class="highlight">cause-and-effect</span>
+                        relationship between the treatment and the outcome.</li>
+                </ul>
+            </section>
+            <section class="causal-inference-example">
+                <h3>Example: Evaluating the Effectiveness of a New Drug</h3>
+                <p><strong>Objective:</strong> Determine whether a new drug is effective in lowering blood pressure.</p>
+
+                <h4>Step 1: Define the Treatment and Outcome</h4>
+                <ul>
+                    <li><strong>Treatment:</strong> The new drug.</li>
+                    <li><strong>Outcome:</strong> Reduction in blood pressure.</li>
+                </ul>
+
+                <h4>Step 2: Random Assignment</h4>
+                <p><strong>Randomization:</strong> <span class="highlight">Randomly</span> assign participants into two
+                    groups:</p>
+                <ul>
+                    <li><strong>Treatment Group:</strong> Receives the new drug.</li>
+                    <li><strong>Control Group:</strong> Receives a <span class="highlight">placebo</span> (no active
+                        drug).</li>
+                </ul>
+
+                <div class="wrapper">
+                    <div class="sticky-container">
+                        <div class="sticky-outer">
+                            <div class="sticky">
+                                <svg width="0" height="0">
+                                    <defs>
+                                        <clipPath id="stickyClip" clipPathUnits="objectBoundingBox">
+                                            <path
+                                                d="M 0 0 Q 0 0.69, 0.03 0.96 0.03 0.96, 1 0.96 Q 0.96 0.69, 0.96 0 0.96 0, 0 0"
+                                                stroke-linejoin="round" stroke-linecap="square" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <div class="sticky-content">
+                                    Please pay attention to the word “Randomized.” Once we select who is taking the drug
+                                    and who is taking the placebo in order to evaluate its effectiveness, other
+                                    confounders could have an effect. We shall see this in a moment.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4>Step 3: Conduct the Experiment</h4>
+                <p><strong>Implementation:</strong> Administer the drug to the treatment group and the placebo to the
+                    control group over a specified period.</p>
+                <p><strong>Blinding:</strong> Ensure that participants and researchers do not know who receives the
+                    treatment or placebo to prevent bias (<span class="highlight">double-blind study</span>).</p>
+
+                <h4>Step 4: Measure the Outcome</h4>
+                <p><strong>Data Collection:</strong> Measure blood pressure in both groups at the end of the study
+                    period.</p>
+
+                <h4>Step 5: Analyze the Results</h4>
+                <p><strong>Comparison:</strong> Compare the average blood pressure reduction between the treatment and
+                    control groups.</p>
+                <p><strong>Statistical Analysis:</strong> Use statistical tests (e.g., t-test) to determine if the
+                    difference in blood pressure reduction is statistically significant.</p>
+
+                <h4>Step 6: Draw Conclusions</h4>
+                <p><strong>Causal Inference:</strong> If the treatment group shows a significantly greater reduction in
+                    blood pressure compared to the control group, infer that the new drug is effective in lowering blood
+                    pressure.</p>
+                <p><strong>Consider Confounders:</strong> Ensure that randomization has effectively controlled for
+                    confounding variables, which could otherwise bias the results.</p>
+
+                <h4>Step 7: Report Findings</h4>
+                <p><strong>Documentation:</strong> Report the methodology, statistical analysis, and conclusions in a
+                    scientific manner, ensuring transparency and reproducibility.</p>
+
+                <h4>Example of Confounders</h4>
+                <p>In our study evaluating the effectiveness of a new drug in lowering blood pressure, a potential
+                    confounder could be the <span class="highlight">participants' baseline physical activity
+                        levels</span>. If participants in the
+                    treatment group are more physically active than those in the control group, the observed reduction
+                    in blood pressure might be due to their higher activity levels <span class="highlight">rather than
+                        the drug itself</span>.
+                </p>
+                <p>
+                    This could lead to an incorrect conclusion that the drug is effective when, in fact, the difference
+                    is due to the confounding effect of physical activity. To address this, researchers should ensure
+                    proper randomization, stratification, or statistical adjustment to control for such confounders.
+                </p>
+            </section>
+            <section class="challenges-section">
+                <h2>Causal Inference Challenges</h2>
+                <p>Causal inference is a powerful tool for understanding cause-and-effect relationships, but it comes
+                    with several challenges that researchers must address to ensure valid conclusions. Here are some of
+                    the key challenges:</p>
+
+                <h3>Confounders</h3>
+                <p>Confounders are variables that are related to both the treatment and the outcome, potentially leading
+                    to biased results if not properly controlled. For example, in a drug effectiveness study,
+                    participants' baseline physical activity levels could confound the results. Strategies to address
+                    confounders include:</p>
+                <ul>
+                    <li><strong>Randomization:</strong> Proper randomization can help distribute confounders evenly
+                        across treatment and control groups.</li>
+                    <li><strong>Statistical Adjustment:</strong> Use statistical methods, such as multivariable
+                        regression, to adjust for confounders in the analysis.</li>
+                    <li><strong>Machine Learning Techniques:</strong> Techniques like propensity score matching can be
+                        used to balance confounders between groups.</li>
+                </ul>
+
+                <h3>Selection Bias</h3>
+                <p>Selection bias occurs when the participants selected for a study are not <span
+                        class="highlight">representative</span> of the target
+                    population, leading to skewed results. This can happen if certain groups are overrepresented or
+                    underrepresented in the study, or if the study does not include a representative sample of the
+                    population. Strategies to address selection bias include:</p>
+                <ul>
+                    <li><strong>Matching:</strong> Matching techniques can be used to balance the characteristics of the
+                        participants in the study.</li>
+                    <li><strong>Propensity Score Matching:</strong> Propensity score matching can be used to balance the
+                        characteristics of the participants in the study.</li>
+                </ul>
+
+                <h3>Counterfactuals</h3>
+                <p>Counterfactuals are hypothetical scenarios that describe <span class="highlight">what would have
+                        happened if</span> a different treatment had been given to a participant. Counterfactuals are
+                    important in causal
+                    inference because they allow researchers to estimate the causal effect of a treatment. Strategies to
+                    address
+                    counterfactuals include:</p>
+                <ul>
+                    <li><strong>Matching:</strong> Matching techniques can be used to balance the characteristics of the
+                        participants in the study.</li>
+                    <li><strong>Propensity Score Matching:</strong> Propensity score matching can be used to balance the
+                        characteristics of the participants in the study.</li>
+                </ul>
+            </section>
+            <section class="assumptions-section">
+                <h2>Assumptions</h2>
+                <p>Causal inference is based on several assumptions that must be met for the results to be valid. Here
+                    are some of the key assumptions:</p>
+                <ul>
+                    <li><strong>Consistency:</strong> The causal effect of the treatment on the outcome is the same for
+                        all units.</li>
+                    <li><strong>No Unmeasured Confounding (Ignorability):</strong> All confounders are measured and
+                        accounted for in the analysis.</li>
+                    <li><strong>Overlap:</strong> There is a non-zero probability of receiving the treatment for all
+                        units.</li>
+                    <li><strong>Positivity:</strong> The probability of receiving the treatment is not equal to 0 or 1
+                        for any unit.</li>
+                    <li><strong>Exclusion Restriction:</strong> The treatment has no direct effect on the outcome except
+                        through the measured intermediate variables.</li>
+                    <li><strong>Stable Unit Treatment Value Assumption (SUTVA):</strong> The potential outcomes for any
+                        unit do not vary depending on the treatments assigned to other units.</li>
+                    <li><strong>Temporal Stability:</strong> The causal relationships between variables do not change
+                        over time.</li>
+                </ul>
+            </section>
+            <section class="causal-graphs-section">
+                <h2>Causal Graphs</h2>
+                <p>Causal graphs are a powerful tool for visualizing causal relationships between variables. They are
+                    represented as <span class="highlight">directed acyclic graphs (DAGs)</span>, where nodes
+                    represent variables and arrows represent
+                    causal relationships. Causal graphs can help researchers identify and understand the causal
+                    relationships between variables in a dataset.</p>
+                <div class="causal-graph-image">
+                    <img src="../../assets/imgs/causal_graph.png" alt="Causal Graph"
+                        style="max-width: 50%; height: auto;">
+                    <p>Causal Graph Image Source: <a
+                            href="https://causalens.com/resources/blog/how-to-understand-the-world-of-causality/"
+                            target="_blank">Causalens</a></p>
+                </div>
+            </section>
+            <section class="measuring-average-treatment-effect-section">
+                <h2>Measuring Average Treatment Effect (ATE)</h2>
+                <p>The <strong>Average Treatment Effect (ATE)</strong> is a measure used to evaluate the average impact
+                    of a treatment across all participants in a study. It is calculated by comparing the outcomes of the
+                    treatment and control groups.</p>
+
+                <h3>Calculating ATE</h3>
+                <p>To calculate the ATE, follow these steps:</p>
+                <ol>
+                    <li>Identify the <strong>Individual Treatment Effect (ITE)</strong> for each participant, which is
+                        the difference between their treatment and control outcomes.</li>
+                    <li>Sum the ITEs for all participants.</li>
+                    <li>Divide the sum by the total number of participants to get the ATE.</li>
+                </ol>
+
+                <h4>Example Calculation</h4>
+                <p>Based on the data:</p>
+                <p>This example is from the video titled <em>"Causal Inference - EXPLAINED!"</em> available on <a
+                        href="https://www.youtube.com/watch?v=Od6oAz1Op2k" target="_blank">YouTube</a>.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Participant</th>
+                            <th>Age</th>
+                            <th>Treatment Outcome</th>
+                            <th>Control Outcome</th>
+                            <th>Individual Treatment Effect (ITE)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ajay</td>
+                            <td>26</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>Sam</td>
+                            <td>24</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>-1</td>
+                        </tr>
+                        <tr>
+                            <td>Less</td>
+                            <td>48</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>Sid</td>
+                            <td>35</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>Clay</td>
+                            <td>25</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>Rhode</td>
+                            <td>39</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Clyde</td>
+                            <td>51</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Rondo</td>
+                            <td>24</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>-1</td>
+                        </tr>
+                        <tr>
+                            <td>Chrom</td>
+                            <td>67</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>Don</td>
+                            <td>34</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>1</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>ATE = (0 - 1 + 0 + 0 + 0 + 1 + 1 - 1 + 0 + 1) / 10 = 0.1</p>
+
+                <h3>Conditional Average Treatment Effect (CATE)</h3>
+                <p>The <strong>Conditional Average Treatment Effect (CATE)</strong> measures the average treatment
+                    effect for a specific subgroup of participants.</p>
+
+                <h4>Example Calculation</h4>
+                <p>For participants aged 35 and above:</p>
+                <ul>
+                    <li>Less: ITE = 0</li>
+                    <li>Sid: ITE = 0</li>
+                    <li>Rhode: ITE = 1</li>
+                    <li>Clyde: ITE = 1</li>
+                    <li>Chrom: ITE = 0</li>
+                </ul>
+                <p>CATE(age ≥ 35) = (0 + 0 + 1 + 1 + 0) / 5 = 0.4</p>
+
+                <p>For participants under 35:</p>
+                <ul>
+                    <li>Ajay: ITE = 0</li>
+                    <li>Sam: ITE = -1</li>
+                    <li>Clay: ITE = 0</li>
+                    <li>Rondo: ITE = -1</li>
+                    <li>Don: ITE = 1</li>
+                </ul>
+                <p>CATE(age < 35)=(0 - 1 + 0 - 1 + 1) / 5=-0.2</p>
+
+                        <p>These calculations help determine the effectiveness of the treatment across different groups
+                        </p>
+
+                        <div class="wrapper">
+                            <div class="sticky-container">
+                                <div class="sticky-outer">
+                                    <div class="sticky">
+                                        <svg width="0" height="0">
+                                            <defs>
+                                                <clipPath id="stickyClip" clipPathUnits="objectBoundingBox">
+                                                    <path
+                                                        d="M 0 0 Q 0 0.69, 0.03 0.96 0.03 0.96, 1 0.96 Q 0.96 0.69, 0.96 0 0.96 0, 0 0"
+                                                        stroke-linejoin="round" stroke-linecap="square" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <div class="sticky-content">
+                                            From the calculations above we can see that the treatment is effective for
+                                            participants aged 35 and above, with an ATE of 0.4, and not effective for
+                                            participants under 35, with an ATE of -0.2.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            </section>
+        </main>
+
+    </div>
+</body>
+
+</html>

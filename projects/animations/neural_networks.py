@@ -322,7 +322,7 @@ class BLACK_BOX_MLP(Scene):
 class DetailedMLP(Scene):
     def construct(self):
         # Scale down the entire scene
-        scale_factor = 0.8
+        scale_factor = 1
 
         # Create black box with reduced width
         black_box = Rectangle(
@@ -441,8 +441,8 @@ class DetailedMLP(Scene):
             connections_hidden_output,
         )
 
-        # Shift the entire scene upwards
-        scene_elements.shift(UP * 1.5 * scale_factor)
+        # Center the entire scene
+        scene_elements.move_to(ORIGIN)
 
         # Animate the scene
         self.play(
@@ -462,7 +462,7 @@ class DetailedMLP(Scene):
         self.wait(1)
 
         # Define a common starting point for the connections
-        common_start_point = LEFT * 5 * scale_factor + UP * 1.5 * scale_factor
+        common_start_point = DOWN*0.3 + LEFT * 5 * scale_factor
 
         # Create connections from the common start point to each input neuron
         input_connections = VGroup(
@@ -483,27 +483,24 @@ class DetailedMLP(Scene):
             ]
         )
 
-        # Create input shapes
-        shapes = VGroup(
-            Circle(
-                radius=0.2 * scale_factor,
-                fill_color=RED,
-                fill_opacity=1,
-                stroke_width=0,
-            ),
-            Circle(
-                radius=0.2 * scale_factor,
-                fill_color=RED,
-                fill_opacity=1,
-                stroke_width=0,
-            ),
-            Circle(
-                radius=0.2 * scale_factor,
-                fill_color=RED,
-                fill_opacity=1,
-                stroke_width=0,
-            ),
+        # Create a static circle at the common start point
+        static_circle = Circle(
+            radius=0.2 * scale_factor,
+            fill_color=RED,
+            fill_opacity=1,
+            stroke_width=0,
         ).move_to(common_start_point)
+
+        # Add the static circle to the scene
+        self.add(static_circle)
+
+        # Create input shapes (copies of the static circle)
+        shapes = VGroup(
+            *[
+                static_circle.copy()
+                for _ in range(3)
+            ]
+        )
 
         # Animate each shape moving along its connection to the input neurons
         self.play(
@@ -516,45 +513,40 @@ class DetailedMLP(Scene):
 
         self.wait(2)
 
-        # Create a new square at the bottom with a lighter background
-        new_black_box = Rectangle(
-            height=3 * scale_factor,
-            width=6 * scale_factor,
-            fill_color=CUSTOM_LIGHT_BLUE_1,  # Use a lighter color for better contrast
-            fill_opacity=0.8,
-            stroke_color=WHITE,
-        ).shift(DOWN * 3 * scale_factor)
-        self.play(Create(new_black_box))
+        # Transition for the first neuron a^(0)_0
+        first_neuron = input_neurons[0]
+        self.play(Indicate(first_neuron, color=YELLOW))
 
-        # Create an arrow from the last input neuron to the new square
-        arrow_to_square = Arrow(
-            start=input_neurons[-1].get_bottom(),
-            end=new_black_box.get_top(),
-            buff=0.1 * scale_factor,
+        # Add a value of 1.0 inside the first neuron if the shape is red
+        if static_circle.get_fill_color() == RED:
+            value_text = MathTex("1.0").move_to(first_neuron.get_center())
+            self.play(Write(value_text))
+
+        self.wait(1)
+
+        # Add final text below the box
+        final_text = Text(
+            "Computation for the first neuron a^{(0)}_0 is complete.",
             color=CUSTOM_OFF_WHITE_1,
-            stroke_width=2  # Adjusted to make the arrow thinner
-        )
-        self.play(Create(arrow_to_square))
+            font_size=20 * scale_factor
+        ).next_to(black_box, DOWN, buff=0.5 * scale_factor)
+
+        self.play(Write(final_text))
         self.wait(2)
 
-        # Add explanatory text next to the new rectangle
-        explanation_text = Text(
-            "Now, let's see how each neuron computes its values.\n"
-            "Let's assume that the color here has a value of 1.0.",
-            color=CUSTOM_OFF_WHITE_1,
-            font_size=20 * scale_factor  # Reduce font size to fit better
-        ).next_to(new_black_box, RIGHT, buff=0.3 * scale_factor)  # Adjust buffer
 
-        # Ensure the text fits within the scene
-        explanation_text.scale_to_fit_width(new_black_box.width * 0.9)
+class NeuronComputationScene(Scene):
+    def __init__(self, weight, bias, input_value, color, **kwargs):
+        super().__init__(**kwargs)
+        self.weight = weight
+        self.bias = bias
+        self.input_value = input_value
+        self.color = color
 
-        self.play(Write(explanation_text))
-        self.wait(2)
+    def construct(self):
+        # Create a group to hold all elements
+        computation_group = VGroup()
 
-        # New animation for neuron computation
-        self.show_neuron_computation()
-
-    def show_neuron_computation(self, weight=0.5, bias=0.1, input_value=1.0, color=RED):
         # Left side: Display initial values
         left_title = (
             Text("Initial Conditions", color=WHITE)
@@ -563,33 +555,28 @@ class DetailedMLP(Scene):
             .shift(UP * 3.5)
         )
         weight_text = (
-            MathTex(r"w^{(2)}_0 = ", f"{weight}")
+            MathTex(r"w^{(2)}_0 = ", f"{self.weight}")
             .scale(0.8)
             .to_edge(LEFT)
             .shift(UP * 2.8)
         )
         bias_text = (
-            MathTex(r"b^{(2)}_0 = ", f"{bias}")
+            MathTex(r"b^{(2)}_0 = ", f"{self.bias}")
             .scale(0.8)
             .next_to(weight_text, DOWN, aligned_edge=LEFT)
         )
         input_text = (
-            MathTex(r"a^{(0)} = ", f"{input_value}")
+            MathTex(r"a^{(0)} = ", f"{self.input_value}")
             .scale(0.8)
             .next_to(bias_text, DOWN, aligned_edge=LEFT)
         )
-        input_object = Circle(radius=0.3, fill_color=color, fill_opacity=1).next_to(
-            input_text, RIGHT
-        )
+        input_object = Circle(
+            radius=0.3, fill_color=self.color, fill_opacity=1
+        ).next_to(input_text, RIGHT)
 
-        self.play(
-            Write(left_title),
-            Write(weight_text),
-            Write(bias_text),
-            Write(input_text),
-            FadeIn(input_object),
+        computation_group.add(
+            left_title, weight_text, bias_text, input_text, input_object
         )
-        self.wait(1)
 
         # Bottom left: Show Sigmoid activation function graph
         axes = (
@@ -614,19 +601,15 @@ class DetailedMLP(Scene):
             .next_to(activation_function_text, DOWN, aligned_edge=LEFT)
         )
 
-        self.play(
-            Write(activation_function_text),
-            Write(sigmoid_label),
-            Create(axes),
-            Create(sigmoid_graph),
+        computation_group.add(
+            axes, sigmoid_graph, activation_function_text, sigmoid_label
         )
-        self.wait(2)
 
         # Divider between left and right sections
         divider = Line(
             start=UP * 3 + LEFT * 1.5, end=DOWN * 3 + LEFT * 1.5, color=WHITE
         )
-        self.play(Create(divider))
+        computation_group.add(divider)
 
         # Right side: Display equation with symbols
         right_title = (
@@ -654,37 +637,38 @@ class DetailedMLP(Scene):
         equation_symbols.set_color_by_tex(r"a^{(0)}", BLUE)
         equation_symbols.set_color_by_tex(r"b^{(2)}_0", GREEN)
 
-        self.play(Write(right_title), Write(equation_symbols))
-        self.wait(1)
+        computation_group.add(right_title, equation_symbols)
 
-        weighted_sum = np.dot(weight, input_value) + bias
+        # Calculate the weighted sum
+        weighted_sum = np.dot(self.weight, self.input_value) + self.bias
+
+        # Calculate the output using the sigmoid function
+        output_value = 1 / (1 + np.exp(-weighted_sum))
 
         # Show the result of w * a + b
         weighted_sum_text = MathTex(
             r"z^{(2)}_0 = ",
-            f"{weight}",
+            f"{self.weight}",
             r"\cdot",
-            f"{input_value}",
+            f"{self.input_value}",
             r"+",
-            f"{bias}",
+            f"{self.bias}",
             "=",
             f"{weighted_sum:.2f}",
         ).next_to(equation_symbols, DOWN)
 
         # Color the components
-        weighted_sum_text.set_color_by_tex(str(weight), YELLOW)
-        weighted_sum_text.set_color_by_tex(str(input_value), BLUE)
-        weighted_sum_text.set_color_by_tex(str(bias), GREEN)
+        weighted_sum_text.set_color_by_tex(str(self.weight), YELLOW)
+        weighted_sum_text.set_color_by_tex(str(self.input_value), BLUE)
+        weighted_sum_text.set_color_by_tex(str(self.bias), GREEN)
 
-        self.play(Write(weighted_sum_text))
-        self.wait(2)
+        computation_group.add(weighted_sum_text)
 
         # Indicate that the result is being passed to the activation function
         activation_step_text = Text("Activation Function", color=WHITE).next_to(
             weighted_sum_text, DOWN * 2.0
         )
-        self.play(Write(activation_step_text))
-        self.wait(1)
+        computation_group.add(activation_step_text)
 
         # Show the output of the Sigmoid function
         sigmoid_output_text = MathTex(
@@ -693,11 +677,10 @@ class DetailedMLP(Scene):
             r")",
         ).next_to(activation_step_text, DOWN * 2.5)
 
-        self.play(Write(sigmoid_output_text))
-        self.wait(2)
+        computation_group.add(sigmoid_output_text)
 
         point = Dot(axes.c2p(weighted_sum, 1 / (1 + np.exp(-weighted_sum))), color=RED)
-        self.play(FadeIn(point))
+        computation_group.add(point)
 
         # Add an arrow from the sigmoid graph to the result
         sigmoid_output_text_result = MathTex(
@@ -711,44 +694,48 @@ class DetailedMLP(Scene):
             buff=0.1,
             color=WHITE,
         )
-        self.play(Create(arrow))
-
-        self.play(Write(sigmoid_output_text_result))
-        self.wait(2)
+        computation_group.add(arrow, sigmoid_output_text_result)
 
         # Highlight the final result and add a label
         output_label = Text("Output of the neuron", color=WHITE).next_to(
             sigmoid_output_text_result, DOWN
         )
-        
-        # Indicate the result and change its color to green
-        self.play(Indicate(sigmoid_output_text_result, color=GREEN))
-        self.play(sigmoid_output_text_result.animate.set_color(GREEN))
-        
-        self.play(Write(output_label))
+        computation_group.add(output_label)
+
+        # Position the entire computation group inside the scene
+        computation_group.move_to(ORIGIN)
+
+        # Play all animations
+        self.play(
+            Write(left_title),
+            Write(weight_text),
+            Write(bias_text),
+            Write(input_text),
+            FadeIn(input_object),
+            Write(activation_function_text),
+            Write(sigmoid_label),
+            Create(axes),
+            Create(sigmoid_graph),
+            Create(divider),
+            Write(right_title),
+            Write(equation_symbols),
+            Write(weighted_sum_text),
+            Write(activation_step_text),
+            Write(sigmoid_output_text),
+            FadeIn(point),
+            Create(arrow),
+            Write(sigmoid_output_text_result),
+            Indicate(sigmoid_output_text_result, color=GREEN),
+            sigmoid_output_text_result.animate.set_color(GREEN),
+            Write(output_label),
+        )
         self.wait(2)
 
         # Clean up at the end
-        self.play(
-            FadeOut(left_title),
-            FadeOut(right_title),
-            FadeOut(weight_text),
-            FadeOut(bias_text),
-            FadeOut(input_text),
-            FadeOut(input_object),
-            FadeOut(activation_function_text),
-            FadeOut(sigmoid_label),
-            FadeOut(axes),
-            FadeOut(sigmoid_graph),
-            FadeOut(divider),
-            FadeOut(equation_symbols),
-            FadeOut(weighted_sum_text),
-            FadeOut(activation_step_text),
-            FadeOut(sigmoid_output_text),
-            FadeOut(point),
-            FadeOut(arrow),
-            FadeOut(sigmoid_output_text_result),
-            FadeOut(output_label),
-        )
+        self.play(FadeOut(computation_group))
+
+        # Return the computed output value
+        return output_value
+
 
 
